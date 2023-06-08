@@ -21,7 +21,10 @@ defmodule OpentelemetryQuantum.MixProject do
         maintainers: ["Tom Taylor"],
         licenses: ["Apache-2.0"],
         files: ~w(lib .formatter.exs mix.exs README* LICENSE* CHANGELOG*),
-        source_url: "https://github.com/breakroom/opentelemetry_quantum"
+        source_url: "https://github.com/breakroom/opentelemetry_quantum",
+        links: %{
+          "GitHub" => "https://github.com/breakroom/opentelemetry_quantum"
+        }
       ]
     ]
   end
