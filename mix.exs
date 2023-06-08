@@ -7,8 +7,22 @@ defmodule OpentelemetryQuantum.MixProject do
       version: "0.1.0",
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
+      docs: [
+        source_url_pattern:
+          "https://github.com/breakroom/opentelemetry_quantum/blob/main/%{path}#L%{line}",
+        main: "OpentelemetryQuantum",
+        extras: ["README.md"]
+      ],
       deps: deps(),
-      elixirc_paths: elixirc_paths(Mix.env())
+      elixirc_paths: elixirc_paths(Mix.env()),
+      package: [
+        name: "opentelemetry_quantum",
+        description: "OpenTelemetry tracing for Quantum",
+        maintainers: ["Tom Taylor"],
+        licenses: ["Apache-2.0"],
+        files: ~w(lib .formatter.exs mix.exs README* LICENSE* CHANGELOG*),
+        source_url: "https://github.com/breakroom/opentelemetry_quantum"
+      ]
     ]
   end
 
@@ -29,7 +43,7 @@ defmodule OpentelemetryQuantum.MixProject do
       {:telemetry, "~> 0.4 or ~> 1.0"},
       {:opentelemetry, "~> 1.0", only: [:test]},
       {:opentelemetry_exporter, "~> 1.0", only: [:test]},
-      {:ex_doc, "~> 0.28", only: [:dev], runtime: false}
+      {:ex_doc, "~> 0.29", only: [:dev], runtime: false}
     ]
   end
 

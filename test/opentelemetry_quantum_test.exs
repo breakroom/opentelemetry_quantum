@@ -25,7 +25,7 @@ defmodule OpentelemetryQuantumTest do
     :application.start(:opentelemetry)
 
     TestHelpers.remove_handlers()
-    OpentelemetryQuantum.setup([])
+    :ok = OpentelemetryQuantum.setup()
 
     :ok
   end
