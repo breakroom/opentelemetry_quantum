@@ -16,6 +16,7 @@ defmodule OpentelemetryQuantum do
 
     # ...
   end
+  ```
   """
 
   alias OpentelemetryQuantum.JobHandler
