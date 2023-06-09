@@ -63,20 +63,23 @@ defmodule OpentelemetryQuantum.JobHandler do
   def handle_job_exception(
         _event,
         _measurements,
-        %{stacktrace: stacktrace, kind: :error, reason: reason} = metadata,
+        %{stacktrace: stacktrace, kind: kind, reason: reason} = metadata,
         _config
       ) do
     ctx = OpentelemetryTelemetry.set_current_telemetry_span(@tracer_id, metadata)
 
     # Record exception and mark the span as errored
     Span.record_exception(ctx, reason, stacktrace)
-    Span.set_status(ctx, OpenTelemetry.status(:error, format_error(reason)))
+    Span.set_status(ctx, OpenTelemetry.status(:error, format_error(reason, kind)))
 
     OpentelemetryTelemetry.end_telemetry_span(@tracer_id, metadata)
   end
 
-  defp format_error(exception) when is_exception(exception), do: Exception.message(exception)
-  defp format_error(error), do: inspect(error)
+  defp format_error(exception, _kind) when is_exception(exception),
+    do: Exception.message(exception)
+
+  defp format_error(error, :error), do: inspect(error)
+  defp format_error(error, :exit), do: "exit: #{inspect(error)}"
 
   defp span_name(%Quantum.Job{name: name}) when is_atom(name) do
     to_string(name) <> " job"

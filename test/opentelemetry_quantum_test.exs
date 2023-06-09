@@ -67,4 +67,19 @@ defmodule OpentelemetryQuantumTest do
                       status: ^expected_status
                     )}
   end
+
+  test "records span on process exiting" do
+    TestScheduler.run_job(:exit)
+
+    expected_status = OpenTelemetry.status(:error, "exit: 1")
+
+    assert_receive {:span,
+                    span(
+                      name: "exit job",
+                      attributes: attributes,
+                      parent_span_id: :undefined,
+                      kind: :consumer,
+                      status: ^expected_status
+                    )}
+  end
 end

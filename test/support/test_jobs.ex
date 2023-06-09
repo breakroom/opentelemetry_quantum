@@ -6,4 +6,8 @@ defmodule TestJobs do
   def exception() do
     raise ArgumentError
   end
+
+  def exit() do
+    exit(1)
+  end
 end
